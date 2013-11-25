@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+
+    <head>
+        <title>Adjustable</title>
+        <link href="style.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <div class="example">
+            <span class="pixels">36px</span>
+            <h1>Does this font-size make me look fat?</h1>
+        </div>
+
+        <script src="../adjustable.js" type="text/javascript"></script>
+        <script type="text/javascript">
+
+            var heading = document.querySelector('h1');
+            var element = document.querySelector('.pixels');
+
+            var adjustable = new Adjustable(element, {
+                min: 0,
+                // max: 50,
+                step: 1,
+                shiftStep: 10,
+                altStep: 0.1,
+                stepWidth: 5,
+                formatter: function(value) {
+                    return value + 'px';
+                },
+                // parseInput: function(input) {
+                //  return parseFloat(input);
+                // }
+            });
+
+            adjustable.on('change', function(value, formatted) { 
+                heading.style.fontSize = formatted;
+            }).reset();
+
+        </script>
+    </body>
+
+</html>

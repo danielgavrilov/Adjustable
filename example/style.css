@@ -1,0 +1,23 @@
+h1 {
+    font-family: 'Source Sans Pro';
+    padding-top: 50px;
+}
+
+.example {
+    padding: 100px 0 0;
+    text-align: center;
+}
+
+.pixels {
+    font-family: 'Source Sans Pro';
+    font-size: 22px;
+    border-bottom: 1px solid #ccc;
+
+    -webkit-transition: border .15s linear;
+       -moz-transition: border .15s linear;
+            transition: border .15s linear;
+}
+
+.pixels:hover, .pixels.adjusting {
+    border-bottom: 2px solid steelblue;
+}
