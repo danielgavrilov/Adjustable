@@ -12,7 +12,6 @@
      * @param {HTMLElement} element The element that contains the adjustable value.
      * @param {Object} options
      */
-    
     function Adjustable(element, options) {
 
         // Prevent chaos if the constructor is executed without the `new` keyword.
@@ -57,7 +56,7 @@
              * The number of pixels (horizontally) between two subsequent steps.
              * @type {number}
              */
-            stepWidth: 5,
+            stepWidth: 4,
 
             /**
              * A function that returns the formatted value, with the necessary 
@@ -252,12 +251,10 @@
 
             value = validate(value);
 
-            if (value !== currentValue) {
+            if (value !== currentValue || forceChange) {
                 currentValue = value;
                 this.fire('change', value, formatter(value));
                 updateHTML();
-            } else if (forceChange) {
-                this.fire('change', value, formatter(value));
             }
 
             return this;
@@ -307,6 +304,7 @@
     extend(Adjustable.prototype, {
 
         on: function(name, callback) {
+            this.listeners || (this.listeners = {});
             if (!this.listeners[name]) this.listeners[name] = [];
             if (this.listeners[name].indexOf(callback) === -1) {
                 this.listeners[name].push(callback);
@@ -329,7 +327,7 @@
         },
 
         fire: function(name /*, arguments... */) {
-            var events = this.listeners[name];
+            var events = this.listeners && this.listeners[name];
             var args = slice.call(arguments, 1);
             if (events && events.length) {
                 for (var i = 0, len = events.length; i < len; i++) {
@@ -337,9 +335,8 @@
                 }
             }
             return this;
-        },
+        }
 
-        listeners: {}
     });
 
 
